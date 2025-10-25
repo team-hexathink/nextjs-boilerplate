@@ -1,112 +1,13 @@
-"use client"; // Next.js 13 app router
-
-import { useState, useEffect } from "react";
-
 export default function Signup() {
-  const [fullName, setFullName] = useState("");
-  const [emailOrPhone, setEmailOrPhone] = useState("");
-  const [otp, setOtp] = useState("");
-  const [generatedOtp, setGeneratedOtp] = useState("");
-  const [otpSent, setOtpSent] = useState(false);
-  const [message, setMessage] = useState("");
-
-  // Floating OTP generation
-  const generateOtp = () => {
-    const newOtp = Math.floor(100000 + Math.random() * 900000).toString(); // 6-digit OTP
-    setGeneratedOtp(newOtp);
-    setOtpSent(true);
-    setMessage(✅ OTP Sent! (For demo: ${newOtp}));
-  };
-
-  const verifyOtp = () => {
-    if (otp === generatedOtp) {
-      setMessage("🎉 Signup Successful!");
-      // Reset form
-      setFullName("");
-      setEmailOrPhone("");
-      setOtp("");
-      setGeneratedOtp("");
-      setOtpSent(false);
-    } else {
-      setMessage("❌ Incorrect OTP. Try again.");
-    }
-  };
-
   return (
-    <div className="relative flex flex-col md:flex-row items-center justify-center min-h-screen bg-white overflow-hidden">
-      {/* Floating blobs */}
-      <div className="absolute w-72 h-72 rounded-full bg-blue-400 blur-3xl top-10 left-10 animate-[float_10s_ease-in-out_infinite_alternate]"></div>
-      <div className="absolute w-72 h-72 rounded-full bg-green-400 blur-3xl bottom-10 right-10 animate-[float_10s_ease-in-out_infinite_alternate] animation-delay-3s"></div>
-
-      {/* SKILLORA text */}
-      <div className="flex-1 flex justify-center md:justify-start mb-10 md:mb-0">
-        <h1 className="text-6xl font-extrabold text-blue-900 drop-shadow-lg animate-[floatText_4s_ease-in-out_infinite_alternate]">
-          SKILLORA
-        </h1>
-      </div>
-
-      {/* Signup form */}
-      <div className="flex-1 bg-white/30 backdrop-blur-md border border-gray-300 p-10 rounded-xl max-w-md">
-        <h2 className="text-2xl font-semibold mb-2 text-gray-900">Welcome</h2>
-        <p className="text-gray-700 mb-6">Signup to your Skillora account</p>
-        <form className="flex flex-col gap-4" onSubmit={(e) => e.preventDefault()}>
-          {/* Full Name */}
-          <div className="flex flex-col">
-            <label className="mb-1 text-gray-900">Full Name</label>
-            <input
-              className="border border-gray-300 rounded p-3"
-              value={fullName}
-              onChange={(e) => setFullName(e.target.value)}
-              placeholder="Enter your full name"
-              required
-            />
-          </div>
-
-          {/* Email / Phone */}
-          <div className="flex flex-col">
-            <label className="mb-1 text-gray-900">Email / Phone</label>
-            <input
-              className="border border-gray-300 rounded p-3"
-              value={emailOrPhone}
-              onChange={(e) => setEmailOrPhone(e.target.value)}
-              placeholder="Enter your email or phone"
-              required
-            />
-          </div>
-
-          {/* OTP Section */}
-          {!otpSent ? (
-            <button
-              className="bg-blue-600 text-white p-3 rounded font-semibold hover:bg-blue-700"
-              onClick={generateOtp}
-            >
-              Get OTP
-            </button>
-          ) : (
-            <>
-              <div className="flex flex-col">
-                <label className="mb-1 text-gray-900">Enter OTP</label>
-                <input
-                  className="border border-gray-300 rounded p-3"
-                  value={otp}
-                  onChange={(e) => setOtp(e.target.value)}
-                  placeholder="6-digit OTP"
-                  required
-                />
-              </div>
-              <button
-                className="bg-green-500 text-white p-3 rounded font-semibold hover:bg-green-600"
-                onClick={verifyOtp}
-              >
-                Verify OTP
-              </button>
-            </>
-          )}
-        </form>
-
-        {/* Message */}
-        {message && <p className="mt-4 font-semibold text-center">{message}</p>}
-      </div>
+    <div className="flex flex-col items-center justify-center min-h-screen bg-white">
+      <h1 className="text-3xl font-bold mb-4">Signup</h1>
+      <form className="flex flex-col gap-3 w-72">
+        <input className="border p-2 rounded" placeholder="Full Name" />
+        <input className="border p-2 rounded" placeholder="Email / Phone" />
+        <button className="bg-blue-600 text-white p-2 rounded">Get OTP</button>
+      </form>
     </div>
   );
 }
+
